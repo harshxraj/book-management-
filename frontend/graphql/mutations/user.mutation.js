@@ -26,3 +26,42 @@ export const LOGOUT = gql`
     }
   }
 `;
+
+export const BUY_BOOK_MUTATION = gql`
+  mutation BuyBook($bookId: ID!) {
+    buyBook(bookId: $bookId) {
+      _id
+      title
+      description
+      author
+      genre
+      image
+    }
+  }
+`;
+
+export const BORROW_BOOK_MUTATION = gql`
+  mutation BorrrowBook($bookId: ID!) {
+    borrowBook(bookId: $bookId) {
+      _id
+      title
+      description
+      author
+      genre
+      image
+    }
+  }
+`;
+
+export const DROP_BOOK_MUTATION = gql`
+  mutation DropBook($bookId: ID!) {
+    dropBook(bookId: $bookId) {
+      _id
+      title
+      description
+      author
+      genre
+      image
+    }
+  }
+`;

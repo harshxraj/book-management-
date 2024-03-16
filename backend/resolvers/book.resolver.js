@@ -7,8 +7,6 @@ const bookResolver = {
       try {
         if (!context.getUser()) throw new Error("Unauthorized");
         const user = await context.getUser();
-        const role = user.role;
-        console.log(role);
 
         const books = await Book.find({})
           .populate("created_by")
@@ -17,6 +15,18 @@ const bookResolver = {
       } catch (err) {
         console.error("Error getting books:", err);
         throw new Error("Error getting books");
+      }
+    },
+    book: async (_, { bookId }) => {
+      try {
+        const book = await Book.findById(bookId);
+        if (!book) {
+          throw new Error("Book not found");
+        }
+        return book;
+      } catch (error) {
+        console.error("Error getting book:", error);
+        throw new Error("Error getting book");
       }
     },
     searchBooks: async (_, { query, filterQuery }) => {
@@ -29,38 +39,28 @@ const bookResolver = {
           ],
         };
 
-        // Add additional filtering based on filterQuery if provided
         if (filterQuery) {
-          // Example: Filtering by genre
           searchCriteria.status = filterQuery;
         }
 
-        const books = await Book.find(searchCriteria);
+        const books = await Book.find(searchCriteria).populate("owner");
         return books;
       } catch (error) {
         console.error("Error searching books:", error);
         throw new Error("Failed to search books");
       }
     },
-    // searchBooks: async (_, { query }) => {
-    //   try {
-    //     const books = await Book.find({
-    //       $or: [
-    //         { title: { $regex: query, $options: "i" } },
-    //         { author: { $regex: query, $options: "i" } },
-    //       ],
-    //     });
-
-    //     return books;
-    //   } catch (error) {
-    //     console.error("Error searching books:", error);
-    //     throw new Error("Failed to search books");
-    //   }
-    // },
   },
   Mutation: {
     addBook: async (_, { input }, context) => {
       try {
+        if (!context.getUser()) throw new Error("Unauthorized");
+        const user_role = await context.getUser().role;
+
+        if (user_role !== "admin") {
+          throw new Error("Only admins can add books");
+        }
+
         const newBook = new Book({
           ...input,
           created_by: context.getUser()._id,
@@ -70,6 +70,42 @@ const bookResolver = {
       } catch (err) {
         console.error("Error creating Book", err);
         throw new Error("Error creating Book");
+      }
+    },
+
+    updateBook: async (_, { bookId, input }, context) => {
+      try {
+        if (!context.getUser()) throw new Error("Unauthorized");
+        const user_role = await context.getUser().role;
+
+        if (user_role !== "admin") {
+          throw new Error("Only admins can update books");
+        }
+
+        const updatedBook = await Book.findByIdAndUpdate(bookId, input, {
+          new: true,
+        });
+        return updatedBook;
+      } catch (error) {
+        console.error("Error updating book:", error);
+        throw new Error("Error updating book");
+      }
+    },
+
+    deleteBook: async (_, { bookId }, context) => {
+      try {
+        if (!context.getUser()) throw new Error("Unauthorized");
+        const user_role = await context.getUser().role;
+
+        if (user_role !== "admin") {
+          throw new Error("Only admins can delete books");
+        }
+
+        const deletedBook = await Book.findByIdAndDelete(bookId);
+        return deletedBook;
+      } catch (error) {
+        console.error("Error deleting book:", error);
+        throw new Error("Error deleting book");
       }
     },
   },

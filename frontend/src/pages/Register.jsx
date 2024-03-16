@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { SIGN_UP } from "../../graphql/mutations/user.mutation";
 import toast from "react-hot-toast";
-import { GET_COURSES } from "../../graphql/queries/course.query";
 
 const Register = () => {
   const [value, setValue] = React.useState([]);

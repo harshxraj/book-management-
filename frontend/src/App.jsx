@@ -2,10 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import SideNav from "./components/SideNav";
 import Dashboard from "./pages/Dashboard";
-import Courses from "./pages/Books";
-import Lectures from "./pages/Lectures";
 import { useQuery } from "@apollo/client";
 import {
   GET_AUTHENTICATED_USER,
@@ -24,7 +21,7 @@ function App() {
   const { loading, error, data } = useQuery(SEARCH_BOOKS_QUERY, {
     variables: { query: "code" },
   });
-  if (error) console.log("ERROR", err);
+  if (error) console.log("ERROR", error);
 
   console.log("QUER", data);
   const {
@@ -94,7 +91,6 @@ function App() {
           path="/books"
           element={userData?.authUser ? <Books /> : <Navigate to="/login" />}
         />
-        <Route path="/lectures" element={<Lectures />} />
 
         <Route
           path="/register"

@@ -5,7 +5,6 @@ import { Modal, Space, Input, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form } from "antd";
 import { toast } from "react-hot-toast";
-import { CREATE_COURSE } from "../../graphql/mutations/course.mutation";
 import { useMutation } from "@apollo/client";
 import { addBook } from "../../redux/user.slice";
 import { ADD_BOOK } from "../../graphql/mutations/book.mutation";
@@ -13,14 +12,17 @@ import { useDispatch } from "react-redux";
 
 const { TextArea } = Input;
 
-const AddCourse = () => {
+const AddBook = () => {
   const [componentDisabled, setComponentDisabled] = useState(false);
   const dispatch = useDispatch();
   const role = "admin";
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [addBook, { loading, error }] = useMutation(ADD_BOOK);
+  // After updating book, we have to call the query GetBook again, to get the updated data ion ui
+  const [addBook, { loading, error }] = useMutation(ADD_BOOK, {
+    refetchQueries: ["GetBook"],
+  });
 
   const optionsArr = [
     { value: "Mystery", label: "Mystery" },
@@ -42,14 +44,14 @@ const AddCourse = () => {
     { value: "Cookbooks", label: "Cookbooks" },
     { value: "Science", label: "Science" },
   ];
-
-  const [bookState, setbookState] = useState({
+  const initalState = {
     title: "",
     description: "",
     author: "",
     genre: "",
     image: "",
-  });
+  };
+  const [bookState, setbookState] = useState(initalState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,9 +93,9 @@ const AddCourse = () => {
       setConfirmLoading(false);
       const newBook = await data.addBook;
       console.log("NEWBOOK", newBook);
-      window.location.reload();
 
-      // dispatch(addBook(newBook));
+      toast.success("New book added!");
+      setbookState(initalState);
     } catch (error) {
       setConfirmLoading(false);
       console.error("Error creating book:", error);
@@ -122,7 +124,7 @@ const AddCourse = () => {
             Add a book
           </Button>
           <Modal
-            title="Add a course"
+            title="Add a book"
             open={open}
             onOk={handleOk}
             confirmLoading={confirmLoading}
@@ -169,7 +171,7 @@ const AddCourse = () => {
                     style={{
                       width: 120,
                     }}
-                    name="course_code"
+                    name=""
                     onChange={onGenreChange}
                     options={optionsArr}
                   />
@@ -199,4 +201,4 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+export default AddBook;

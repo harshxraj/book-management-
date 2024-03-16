@@ -19,6 +19,9 @@ const userTypeDef = `#graphql
    type Mutation{
     signUp(input: SignUpInput!): User
     login(input: LoginInput!): User
+    buyBook(bookId: ID!): Book
+    dropBook(bookId: ID!): Book
+    borrowBook(bookId: ID!): Book
     logout: LogoutResponse
    }
 

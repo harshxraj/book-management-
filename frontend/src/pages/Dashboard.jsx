@@ -10,6 +10,7 @@ import { Layout, Menu, Button, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 import { Link, Navigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import { GiBookshelf } from "react-icons/gi";
 import { Modal, Space, Input } from "antd";
 import { RxDashboard } from "react-icons/rx";
 import { PiStack } from "react-icons/pi";
@@ -20,7 +21,7 @@ import { GET_AUTHENTICATED_USER } from "../../graphql/queries/user.query";
 import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../components/BookCard";
 
-const Lectures = () => {
+const Dashboard = () => {
   const dispatch = useDispatch();
   const { data, error } = useQuery(GET_AUTHENTICATED_USER);
   // const [collapsed, setCollapsed] = useState(false);
@@ -64,14 +65,15 @@ const Lectures = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1" icon={<RxDashboard />}>
-            <Link to="/">Dashboard</Link>
+          <Menu.Item key="1" icon={<GiBookshelf />}>
+            <Link to="/">
+              {role == "admin" ? "Dashboard" : "Your collection"}
+            </Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<PiStack />}>
-            <Link to="/books">Courses</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<VideoCameraOutlined />}>
-            <Link to="/lectures">Lectures</Link>
+            <Link to="/books">
+              {role == "admin" ? "Books" : "Browse Books"}
+            </Link>
           </Menu.Item>
 
           <Menu.Item key="4" icon={<CiLogout />} onClick={handleLogout}>
@@ -126,10 +128,42 @@ const Lectures = () => {
               </div>
             </div>
           )}
+
+          {role == "admin" && (
+            <div className="flex flex-col gap-3">
+              <div className="h-20 bg-blue-400 flex items-center p-6 rounded-md text-2xl text">
+                Total Books Registered: {all_books.length}
+              </div>
+
+              <div className="h-20 bg-green-400 flex items-center p-6 rounded-md text-2xl text">
+                Total Available Books:{" "}
+                {all_books.reduce(
+                  (acc, el) => (el.status === "available" ? acc + 1 : acc),
+                  0
+                )}
+              </div>
+
+              <div className="h-20 bg-orange-400 flex items-center p-6 rounded-md text-2xl text">
+                Total Bought Books:{" "}
+                {all_books.reduce(
+                  (acc, el) => (el.status === "bought" ? acc + 1 : acc),
+                  0
+                )}
+              </div>
+
+              <div className="h-20 bg-purple-400 flex items-center p-6 rounded-md text-2xl text">
+                Total Borrowed Books:{" "}
+                {all_books.reduce(
+                  (acc, el) => (el.status === "borrowed" ? acc + 1 : acc),
+                  0
+                )}
+              </div>
+            </div>
+          )}
         </Content>
       </Layout>
     </Layout>
   );
 };
 
-export default Lectures;
+export default Dashboard;

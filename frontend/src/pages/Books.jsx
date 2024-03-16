@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { CiLogout } from "react-icons/ci";
 
 import { Layout, Menu, Button, theme, Input } from "antd";
 import { GiBookshelf } from "react-icons/gi";
 const { Header, Sider, Content } = Layout;
 import { Link } from "react-router-dom";
-import { RxDashboard } from "react-icons/rx";
 import { PiStack } from "react-icons/pi";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_COURSES } from "../../graphql/queries/course.query";
-import CourseCard from "../components/CourseCard";
 import { LOGOUT } from "../../graphql/mutations/user.mutation";
-import AddCourse from "../components/AddBook";
-import useSelection from "antd/es/table/hooks/useSelection";
 import { useSelector } from "react-redux";
 import { GET_AUTHENTICATED_USER } from "../../graphql/queries/user.query";
 import BookCard from "../components/BookCard";
 import { SEARCH_BOOKS_QUERY } from "../../graphql/queries/book.query";
+import AddBook from "../components/AddBook";
 
-const Courses = () => {
+const Books = () => {
   const { Search } = Input;
   const [query, setQuery] = useState("");
   const [filterQuery, setFilterQuery] = useState("");
@@ -88,14 +78,15 @@ const Courses = () => {
         <div className="demo-logo-vertical" />
 
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1" icon={<RxDashboard />}>
-            <Link to="/">Dashboard</Link>
+          <Menu.Item key="1" icon={<GiBookshelf />}>
+            <Link to="/">
+              {role == "admin" ? "Dashboard" : "Your collection"}
+            </Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<PiStack />}>
-            <Link to="/courses">Courses</Link>
-          </Menu.Item>
-          <Menu.Item key="3" icon={<VideoCameraOutlined />}>
-            <Link to="/lectures">Lectures</Link>
+            <Link to="/books">
+              {role == "admin" ? "Books" : "Browse Books"}
+            </Link>
           </Menu.Item>
 
           <Menu.Item key="4" icon={<CiLogout />} onClick={handleLogout}>
@@ -126,7 +117,7 @@ const Courses = () => {
               {role == "admin" && (
                 <>
                   <h1 className="text-3xl font-medium mr-5 pb-2">Books</h1>
-                  <AddCourse />
+                  <AddBook />
                 </>
               )}
 
@@ -148,7 +139,7 @@ const Courses = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          <div className="flex lg:flex-row md:flex-col sm:flex-col sm:mb-4 md:mb-4 justify-between">
+          <div className="flex mb-4 lg:flex-row flex-col sm:mb-6 md:mb-4  justify-between">
             <Search
               placeholder="Seach for books here"
               allowClear
@@ -214,4 +205,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Books;

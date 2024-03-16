@@ -30,6 +30,10 @@ const userSlice = createSlice({
     addBook: (state, { payload }) => {
       state.all_books.push(payload);
     },
+    buyBook: (state, { payload }) => {
+      state.owned_books.push(payload);
+      state.all_books.push(payload);
+    },
   },
 });
 
@@ -40,5 +44,6 @@ export const {
   setOwnedBooks,
   setBorrowedBooks,
   addBook,
+  buyBook,
 } = userSlice.actions;
 export default userSlice.reducer;

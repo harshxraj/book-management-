@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import Book from "../models/book.model.js";
+import bookResolver from "./book.resolver.js";
 
 const userResolver = {
   Query: {
@@ -15,12 +16,16 @@ const userResolver = {
     },
     user: async (_, { userId }) => {
       try {
-        const user = await User.findById(userId).populate("books");
-        console.log(user);
+        const user = await User.findById(userId).populate(
+          "owned_books borrowed_books"
+        );
+        if (!user) {
+          throw new Error("User not found");
+        }
         return user;
-      } catch (err) {
-        console.error("Error in user query:", err);
-        throw new Error(err.message || "Error getting user");
+      } catch (error) {
+        console.error("Error getting user:", error);
+        throw new Error("Error getting user");
       }
     },
     owned_books: async (_, __, context) => {
@@ -113,6 +118,73 @@ const userResolver = {
       } catch (err) {
         console.error("Error in login:", err);
         throw new Error(err.message || "Internal server error");
+      }
+    },
+    buyBook: async (_, { bookId }, context) => {
+      try {
+        const user_id = await context.getUser()._id;
+
+        const user = await User.findById(user_id);
+
+        user.owned_books.push(bookId);
+        await user.save();
+
+        const book = await Book.findById(bookId);
+        book.status = "bought";
+        book.owner = user_id;
+        await book.save();
+
+        return book;
+      } catch (error) {
+        console.error("Error buying book:", error);
+        throw error;
+      }
+    },
+    borrowBook: async (_, { bookId }, context) => {
+      try {
+        const user_id = await context.getUser()._id;
+
+        const user = await User.findById(user_id);
+
+        user.borrowed_books.push(bookId);
+        await user.save();
+
+        const book = await Book.findById(bookId);
+        book.status = "borrowed";
+        book.owner = user_id;
+        await book.save();
+
+        return book;
+      } catch (error) {
+        console.error("Error borrowing book:", error);
+        throw error;
+      }
+    },
+    dropBook: async (_, { bookId }, context) => {
+      try {
+        const user_id = await context.getUser()._id;
+
+        const user = await User.findById(user_id);
+
+        user.owned_books = user.owned_books.filter(
+          (book) => book.toString() !== bookId
+        );
+
+        user.borrowed_books = user.borrowed_books.filter(
+          (book) => book.toString() !== bookId
+        );
+        await user.save();
+
+        const book = await Book.findById(bookId);
+        book.status = "available";
+        book.owner = null;
+
+        await book.save();
+
+        return book;
+      } catch (error) {
+        console.error("Error dropping book:", error);
+        throw error;
       }
     },
     logout: async (_, __, context) => {
