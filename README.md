@@ -65,6 +65,9 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 
 **Normal user credentials - [email - user@gmail.com] [password - 123]**
 
-## typeDefs [link](https://gist.github.com/harshxraj/3897a4a0bcef1a2153d3790029e9902d)
-## resolvers [link[(https://gist.github.com/harshxraj/69e1b1d70278947e14ce60f3ab710391)
-## queries [link](https://gist.github.com/harshxraj/745d877353f3ddd99c5bc0f98ceef38d)
+<a href="https://gist.github.com/harshxraj/3897a4a0bcef1a2153d3790029e9902d" target="_blank">typeDefs</a>
+
+<a href="https://gist.github.com/harshxraj/69e1b1d70278947e14ce60f3ab710391" target="_blank">resolvers</a>
+
+<a href="https://gist.github.com/harshxraj/745d877353f3ddd99c5bc0f98ceef38d" target="_blank">queries</a>
+
