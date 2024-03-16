@@ -53,19 +53,19 @@ function App() {
 
   useEffect(() => {
     if (!bookLoading) {
-      dispatch(setBooks(AllbookData.books));
+      dispatch(setBooks(AllbookData?.books));
     }
   }, [bookLoading, AllbookData, dispatch]);
 
   useEffect(() => {
     if (!ownedBookLoading) {
-      dispatch(setOwnedBooks(ownedBookData.owned_books));
+      dispatch(setOwnedBooks(ownedBookData?.owned_books));
     }
   }, [ownedBookData, ownedBookLoading, dispatch]);
 
   useEffect(() => {
     if (!borrowedBookLoading) {
-      dispatch(setBorrowedBooks(borrowedBookData.borrowed_books));
+      dispatch(setBorrowedBooks(borrowedBookData?.borrowed_books));
     }
   }, [borrowedBookData, borrowedBookLoading, dispatch]);
 
