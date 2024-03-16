@@ -8,7 +8,12 @@ import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const [login, { loading }] = useMutation(LOGIN, {
-    refetchQueries: ["GetAuthenticatedUser"],
+    refetchQueries: [
+      "GetAuthenticatedUser",
+      "GetBook",
+      "GetOwnedBook",
+      "GetBorrowedBook",
+    ],
   });
 
   const onFinish = async (values) => {

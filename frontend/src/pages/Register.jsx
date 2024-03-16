@@ -13,7 +13,12 @@ const Register = () => {
   const [value, setValue] = React.useState([]);
 
   const [signup, { loading, error }] = useMutation(SIGN_UP, {
-    refetchQueries: ["GetAuthenticatedUser"],
+    refetchQueries: [
+      "GetAuthenticatedUser",
+      "GetBook",
+      "GetOwnedBook",
+      "GetBorrowedBook",
+    ],
   });
 
   const onFinish = async (values) => {

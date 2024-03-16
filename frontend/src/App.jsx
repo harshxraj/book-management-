@@ -18,17 +18,12 @@ import { setBooks, setBorrowedBooks, setOwnedBooks } from "../redux/user.slice";
 
 function App() {
   const dispatch = useDispatch();
-  const { loading, error, data } = useQuery(SEARCH_BOOKS_QUERY, {
-    variables: { query: "code" },
-  });
-  if (error) console.log("ERROR", error);
-
-  console.log("QUER", data);
   const {
     loading: userLoading,
     data: userData,
     error: userError,
   } = useQuery(GET_AUTHENTICATED_USER);
+  console.log("USERDATA", userData);
 
   const {
     loading: ownedBookLoading,
@@ -55,19 +50,25 @@ function App() {
     if (!bookLoading) {
       dispatch(setBooks(AllbookData?.books));
     }
-  }, [bookLoading, AllbookData, dispatch]);
+  }, [bookLoading, AllbookData, dispatch, userData, userLoading]);
 
   useEffect(() => {
     if (!ownedBookLoading) {
       dispatch(setOwnedBooks(ownedBookData?.owned_books));
     }
-  }, [ownedBookData, ownedBookLoading, dispatch]);
+  }, [ownedBookData, ownedBookLoading, dispatch, userData, userLoading]);
+
+  useEffect(() => {
+    if (!ownedBookLoading) {
+      dispatch(setOwnedBooks(ownedBookData?.owned_books));
+    }
+  }, []);
 
   useEffect(() => {
     if (!borrowedBookLoading) {
       dispatch(setBorrowedBooks(borrowedBookData?.borrowed_books));
     }
-  }, [borrowedBookData, borrowedBookLoading, dispatch]);
+  }, [borrowedBookData, borrowedBookLoading, dispatch, userData, userLoading]);
 
   if (userLoading) return null;
   if (userError) return <p>Error fetching user data</p>;
