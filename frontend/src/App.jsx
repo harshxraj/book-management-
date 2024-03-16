@@ -30,12 +30,12 @@ function App() {
     error: userError,
   } = useQuery(GET_AUTHENTICATED_USER);
 
-  // const {
-  //   loading: ownedBookLoading,
-  //   data: ownedBookData,
-  //   error: ownedBookError,
-  // } = useQuery(GET_OWNED_BOOKS);
-  // console.log("OWNED BOOKS", ownedBookData);
+  const {
+    loading: ownedBookLoading,
+    data: ownedBookData,
+    error: ownedBookError,
+  } = useQuery(GET_OWNED_BOOKS);
+  console.log("OWNED BOOKS", ownedBookData);
 
   const {
     loading: bookLoading,
