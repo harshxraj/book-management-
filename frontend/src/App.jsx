@@ -51,23 +51,23 @@ function App() {
   } = useQuery(GET_BORROWED_BOOKS);
   console.log(borrowedBookData);
 
-  // useEffect(() => {
-  //   if (!bookLoading) {
-  //     dispatch(setBooks(AllbookData.books));
-  //   }
-  // }, [bookLoading, AllbookData, dispatch]);
+  useEffect(() => {
+    if (!bookLoading) {
+      dispatch(setBooks(AllbookData.books));
+    }
+  }, [bookLoading, AllbookData, dispatch]);
 
-  // useEffect(() => {
-  //   if (!ownedBookLoading) {
-  //     dispatch(setOwnedBooks(ownedBookData.owned_books));
-  //   }
-  // }, [ownedBookData, ownedBookLoading, dispatch]);
+  useEffect(() => {
+    if (!ownedBookLoading) {
+      dispatch(setOwnedBooks(ownedBookData.owned_books));
+    }
+  }, [ownedBookData, ownedBookLoading, dispatch]);
 
-  // useEffect(() => {
-  //   if (!borrowedBookLoading) {
-  //     dispatch(setBorrowedBooks(borrowedBookData.borrowed_books));
-  //   }
-  // }, [borrowedBookData, borrowedBookLoading, dispatch]);
+  useEffect(() => {
+    if (!borrowedBookLoading) {
+      dispatch(setBorrowedBooks(borrowedBookData.borrowed_books));
+    }
+  }, [borrowedBookData, borrowedBookLoading, dispatch]);
 
   if (userLoading) return null;
   if (userError) return <p>Error fetching user data</p>;
