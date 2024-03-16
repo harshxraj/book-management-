@@ -30,6 +30,12 @@ const userResolver = {
     },
     owned_books: async (_, __, context) => {
       try {
+        console.log("inside");
+        // if (!context.getUser()) throw new Error("Unauthorized");
+        if (!context.getUser()) {
+          return [];
+        }
+
         if (context.getUser().role !== "user") {
           return [];
         }
@@ -52,6 +58,10 @@ const userResolver = {
 
     borrowed_books: async (_, __, context) => {
       try {
+        // if (!context.getUser()) throw new Error("Unauthorized");
+        if (!context.getUser()) {
+          return [];
+        }
         if (context.getUser().role !== "user") {
           return [];
         }

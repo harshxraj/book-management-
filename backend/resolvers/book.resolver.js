@@ -5,7 +5,10 @@ const bookResolver = {
   Query: {
     books: async (_, __, context) => {
       try {
-        if (!context.getUser()) throw new Error("Unauthorized");
+        // if (!context.getUser()) throw new Error("Unauthorized");
+        if (!context.getUser()) {
+          return [];
+        }
         const user = await context.getUser();
 
         const books = await Book.find({})
