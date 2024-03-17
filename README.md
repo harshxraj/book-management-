@@ -1,3 +1,4 @@
+
 ## **Book Management App**
 This is a Full-Stack MERN application built with GraphQL for managing books and users, integrated with MongoDB for database storage. 
 It provides functionalities for users to browse, search, borrow, and buy books from the library, with authentication and authorization features implemented using passport.js.
@@ -71,3 +72,25 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 
 <a href="https://gist.github.com/harshxraj/745d877353f3ddd99c5bc0f98ceef38d" target="_blank">queries</a>
 
+<a href="https://gist.github.com/harshxraj/54d1aeaf93d67ae83d285981a4285049" target="_blank">db data</a>
+
+## Preview
+
+
+https://github.com/harshxraj/book-management-/assets/128404446/da66af53-bbd4-4517-b556-cf44c4a89566
+
+## Screenshot
+- Register / Login Page![Screenshot 2024-03-17 172443](https://github.com/harshxraj/book-management-/assets/128404446/8f996c61-ca92-46d2-959d-8273d80d669d)
+![Screenshot 2024-03-17 172449](https://github.com/harshxraj/book-management-/assets/128404446/bf16ab46-1a63-4eee-bbf6-df84e8b8afc4)
+
+- Dashboard (Admin)![Screenshot 2024-03-17 172510](https://github.com/harshxraj/book-management-/assets/128404446/c456a56a-8d77-4546-89d2-3471dfe07102)
+
+- Books (Admin)![Screenshot 2024-03-17 172519](https://github.com/harshxraj/book-management-/assets/128404446/664b2150-8a5d-42a6-ae0e-14439a38d3cb)
+
+- Book Creation (Admin)![Screenshot 2024-03-17 172537](https://github.com/harshxraj/book-management-/assets/128404446/c005f8ab-c28e-4e0f-af5f-383f8fe79ae9)
+
+- Dashboard (normal user)![Screenshot 2024-03-17 172558](https://github.com/harshxraj/book-management-/assets/128404446/42602dc7-6599-4485-a607-5e1eecf68ee5)
+
+- Books (normal user)![Screenshot 2024-03-17 172603](https://github.com/harshxraj/book-management-/assets/128404446/73c4a4dc-4472-480e-9790-376c5a5d2b3c)
+
+  
