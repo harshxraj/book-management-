@@ -1,8 +1,10 @@
 ## **Book Management App**
-This is a Full-Stack MERN application built with GraphQL for managing books and users, integrated with MongoDB for database storage. 
+
+This is a Full-Stack MERN application built with GraphQL for managing books and users, integrated with MongoDB for database storage.
 It provides functionalities for users to browse, search, borrow, and buy books from the library, with authentication and authorization features implemented using passport.js.
 
 ## Features
+
 - User Authentication: Users can register, login, and logout securely. Different roles (admin, regular user) are implemented with appropriate permissions.
 - Admins can add new books to the library.
 - Users can browse and search for available books.
@@ -11,6 +13,7 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 - Users can request to borrow a book from another user, and upon approval, the ownership is transferred.
 
 ## Technologies Used
+
 - **GraphQL**: A query language for APIs that enables efficient data fetching.
 - **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine for server-side development.
 - **Express.js**: A minimalist web framework for Node.js that simplifies building web applications and APIs.
@@ -22,6 +25,7 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 - **Redux Toolkit**: An opinionated, batteries-included toolset for efficient Redux development, providing utilities and best practices out of the box.
 
   ## Get Started:
+
 1. **Clone the Repository**:
 
    ```bash
@@ -37,12 +41,13 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 
 3. **Backend (.env)**
 
- Create a file named `.env` in the `backend` directory and add the following environment variables:
+Create a file named `.env` in the `backend` directory and add the following environment variables:
 
-  ```
-  MONGO_URI=
-  SESSION_SECRET=
-  ```
+```
+MONGO_URI=
+SESSION_SECRET=
+```
+
 4. **Install Frontend Dependencies**:
 
    ```bash
@@ -61,7 +66,8 @@ It provides functionalities for users to browse, search, borrow, and buy books f
    ```bash
    npm run dev
    ```
-**Admin credentials - [email - admin@gmail.com] [password - 123]**
+
+   **Admin credentials - [email - admin@gmail.com] [password - 123]**
 
 **Normal user credentials - [email - user@gmail.com] [password - 123]**
 
@@ -71,3 +77,4 @@ It provides functionalities for users to browse, search, borrow, and buy books f
 
 <a href="https://gist.github.com/harshxraj/745d877353f3ddd99c5bc0f98ceef38d" target="_blank">queries</a>
 
+<a href="https://gist.github.com/harshxraj/54d1aeaf93d67ae83d285981a4285049" target="_blank">db data</a>

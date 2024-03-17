@@ -30,10 +30,10 @@ const Login = () => {
     }
   };
   return (
-    <div className="border flex flex-col items-center justify-center h-[100vh]">
+    <div className="border flex flex-col items-center justify-center h-[100vh] bg-gradient-to-tr from-sky-300 via-purple-500 to-sky-700">
       <Form
         name="normal_login"
-        className="login-form border w-[900px] m-auto p-6 bg-gray-100"
+        className="login-form border w-[900px] m-auto p-6 bg-gray-100 rounded-md"
         initialValues={{
           remember: true,
         }}
