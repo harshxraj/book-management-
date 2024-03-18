@@ -39,7 +39,7 @@ const BookCard = ({
     useMutation(BORROW_BOOK_MUTATION, {
       refetchQueries: ["GetBook", "GetBorrowedBook"],
     });
-  const [dropBook, {}] = useMutation(DROP_BOOK_MUTATION, {
+  const [dropBook, { loading: dropLoading }] = useMutation(DROP_BOOK_MUTATION, {
     refetchQueries: ["GetOwnedBook", "GetBorrowedBook", "GetBook"],
   });
 
@@ -127,7 +127,7 @@ const BookCard = ({
               <Button
                 className="bg-green-500 mr-4 mt-3 text-white"
                 onClick={() => handleBuyBook(_id)}
-                disabled={status != "available"}
+                disabled={status != "available" || buyLoading}
               >
                 {buyLoading ? "Buying..." : "Buy"}
               </Button>
@@ -140,7 +140,7 @@ const BookCard = ({
               <Button
                 className="bg-yellow-500 text-white"
                 onClick={() => handleBorrowBook(_id)}
-                disabled={status != "available"}
+                disabled={status != "available" || borrowLoading}
               >
                 {borrowLoading ? "Borrowing..." : "Borrow"}
               </Button>
@@ -160,6 +160,7 @@ const BookCard = ({
             <Button
               className="bg-sky-400 text-white mt-2 hover:cursor-pointer"
               onClick={() => handleDropBook(_id)}
+              disabled={dropLoading}
             >
               Drop Book
             </Button>
